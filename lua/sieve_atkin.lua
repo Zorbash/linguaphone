@@ -1,4 +1,4 @@
-N = 100000000 
+N = tonumber(arg[1]) or 1000
 nsqrt = N^(0.5)
 
 is_prime = {}
@@ -11,16 +11,28 @@ end
 for x = 1, nsqrt do
   for y = 1, nsqrt do
     n = 4 * (x^2) + y^2
-    if n <= N and (n % 12 == 1 || n % 12 == 5) then
-      is_prime[n] = !is_prime[n]
+    if n <= N and (n % 12 == 1 or n % 12 == 5) then
+      if is_prime[n] == true then
+        is_prime[n] = false
+      else
+        is_prime[n] = true
+      end
     end
     n = 3 * (x^2) + y^2
     if n <= N and n % 12 == 7 then
-      is_prime[n] = !is_prime[n]
+      if is_prime[n] == true then
+        is_prime[n] = false
+      else
+        is_prime[n] = true
+      end
     end
     n = 3 * (x^2) - y^2
     if x > y and n <= N and n % 12 == 11 then
-      is_prime[n] = !is_prime[n]
+      if is_prime[n] == true then
+        is_prime[n] = false
+      else
+        is_prime[n] = true
+      end
     end
   end
 end
@@ -37,8 +49,13 @@ is_prime[2] = true
 is_prime[3] = true
 primes = {}
 
-for x = 0, #is_prime - 1 do
-  if is_prime[x] then
+for x = 1, #is_prime - 1 do
+  if is_prime[x] == true then
     table.insert(primes, x)
   end
 end
+
+for x = 1, #primes do
+    print(primes[x])
+end
+os.exit(0)
