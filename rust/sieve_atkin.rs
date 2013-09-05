@@ -22,18 +22,17 @@ fn stieve_atkin() {
     }
   }
 
-  for x in range(5, nsqrt) {
-    if is_prime[x] {
-      let mut y = x*x;
-      while y < N {
-        is_prime[y] = false;
-        y += x*x;
-      }
+  for x in range(5, nsqrt).filter(|i| is_prime[*i]) {
+    let mut y = x*x;
+    while y < N {
+      is_prime[y] = false;
+      y += x*x;
     }
   }
 
   is_prime[2] = true;
   is_prime[3] = true;
 
-  for x in range(0, N) { if is_prime[x] { primes.push(x) } }
+  for x in range(0, N).filter(|i| is_prime[*i]) { primes.push(x) }
+  println(fmt!("%u", primes.len()))
 }
